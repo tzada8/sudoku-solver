@@ -74,7 +74,6 @@ def solve(bo):
             bo[row][col] = 0
     return False
 
-# this is a test comment x3
 
 # Show board before and after solving with a space in between 2 boards
 print_board(board)
