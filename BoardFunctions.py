@@ -70,7 +70,7 @@ def solve(bo):
 
             if solve(bo):
                 return True
-            # Tile could not be replaced so empty it, then backtrack to previous step
+            # Tile could not be filled, so empty it, then backtrack to previous step
             bo[row][col] = 0
     return False
 
