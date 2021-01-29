@@ -49,7 +49,7 @@ if __name__ == "__main__":
     root.title("Sudoku Solver")
     root.geometry("400x450+150+75")
     root.resizable(False, False)  # Window doesn't need to resize
-    root.iconbitmap('c:/Users/zadat/PycharmProjects/SudokuSolver/images/sudoku_logo2.ico')
+    root.iconbitmap('c:/Users/zadat/PycharmProjects/SudokuSolver/images/sudoku_logo.ico')
     root.configure(background="#F8F8FF")
 
     # Creating central frame for board
