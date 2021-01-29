@@ -1,6 +1,3 @@
-from boards import board
-
-
 # Reads through sudoku board and prints it to console
 def print_board(bo):
     for r in range(len(bo)):  # Go through each row
@@ -75,8 +72,10 @@ def solve(bo):
     return False
 
 
-# Show board before and after solving with a space in between 2 boards
-print_board(board)
-solve(board)
-print()
-print_board(board)
+# Function that allows a button to run multiple commands
+def combine_funcs(*funcs):
+    def combined_func(*args, **kwargs):
+        for f in funcs:
+            f(*args, **kwargs)
+
+    return combined_func
