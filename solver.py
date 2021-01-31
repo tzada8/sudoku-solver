@@ -12,6 +12,13 @@ def print_board(bo):
             print()
 
 
+# Empties board by making every value in 2D array 0
+def empty_board(bo):
+    for r in range(len(bo)):
+        for c in range(len(bo[r])):
+            bo[r][c] = 0
+
+
 # Finds next empty tile of board
 def find_empty_tile(bo):
     for r in range(len(bo)):
@@ -50,32 +57,3 @@ def is_in_box(val, row, col, bo):
 # Determines if number added to given tile satisfies all conditions
 def valid_placement(val, row, col, bo):
     return not is_in_row(val, row, bo) and not is_in_col(val, col, bo) and not is_in_box(val, row, col, bo)
-
-
-# Goes through entire Sudoku board following the rules and solves it using recursion
-def solve(bo):
-    empty_location = find_empty_tile(bo)
-    if not empty_location:  # If board is full, then exit recursion
-        return True
-    else:  # If still some empty tiles, then assign empty tile to row, and col
-        row, col = empty_location
-
-    for i in range(1, 10):  # Try numbers 1-9
-        # Value works, so place it in board and try next empty tile
-        if valid_placement(i, row, col, bo):
-            bo[row][col] = i
-
-            if solve(bo):
-                return True
-            # Tile could not be filled, so empty it, then backtrack to previous step
-            bo[row][col] = 0
-    return False
-
-
-# Function that allows a button to run multiple commands
-def combine_funcs(*funcs):
-    def combined_func(*args, **kwargs):
-        for f in funcs:
-            f(*args, **kwargs)
-
-    return combined_func
