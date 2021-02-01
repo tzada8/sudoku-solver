@@ -104,21 +104,21 @@ def insert_or_remove_helper(row, col, val, colour):
     adjust_x, adjust_y = determine_spacing(row, col, False)
 
     # Set frame border to red
-    board_widgets[row][col].frame['highlightbackground'] = colour
-    board_widgets[row][col].frame['highlightcolor'] = colour
+    board_widgets[row][col].border['highlightbackground'] = colour
+    board_widgets[row][col].border['highlightcolor'] = colour
     # Set label value to 0
-    board_widgets[row][col].label['text'] = val
+    board_widgets[row][col].number['text'] = val
 
     # Place frame and label on screen
-    board_widgets[row][col].frame.place(relx=adjust_x, rely=adjust_y, relwidth=0.111, relheight=0.111)
-    board_widgets[row][col].label.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+    board_widgets[row][col].border.place(relx=adjust_x, rely=adjust_y, relwidth=0.111, relheight=0.111)
+    board_widgets[row][col].number.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
 
     board_frame.update()
 
 
 # Creates popup window to ask user if they want to see the board being solved or if they just want the answer
 def popup_ask_to_show(bo, location):
-    # Disable button so board cannot be "solved" again
+    # Disable SOLVE button so board cannot be re-solved again
     solve_btn['state'] = 'disabled'
 
     # Uses message boxes to ask if user wants to watch puzzle being solved or not
@@ -137,6 +137,7 @@ def popup_ask_to_show(bo, location):
     else:  # Else solve board with "False" since they just want answer
         solve(bo, False)
         fill_known_vals(bo, location)
+    create_board_btn['state'] = 'normal'  # Enable CREATE button, so new board can be created
 
 
 # Goes through entire Sudoku board following the rules and solves it using recursion
@@ -165,6 +166,7 @@ def solve(bo, show_steps):
 
 # Transfers all values from entry to 2D board List
 def transfer_vals(entries):
+    global board_widgets
     for r in range(len(board)):
         for c in range(len(board[r])):
             if len(entries[r][c].get()) != 0:  # Entry has input, so add accordingly
@@ -172,6 +174,7 @@ def transfer_vals(entries):
             else:  # Entry has no input, so insert a 0 in that spot
                 board[r][c] = 0
     fill_known_vals(board, board_frame)
+    board_widgets = board_of_widgets(board)
 
 
 # Looks at entry in Entry widget and ensures it is acceptable; 1 character and a number
@@ -186,9 +189,8 @@ def validate(item):
 
 # User inputs values into entry boxes, such that they can solve any puzzle they want
 def input_board_values(bo):
-    # Enable SOLVE and RESET board buttons, and disable CREATE button
+    # Enable SOLVE button and disable CREATE button, so user is forced to choose one option
     solve_btn['state'] = 'normal'
-    reset_board_btn['state'] = 'normal'
     create_board_btn['state'] = 'disabled'
 
     # Creates popup window so user can create their own board that needs to be solved
@@ -241,10 +243,6 @@ def input_board_values(bo):
 # Clears all values from board; all values in 2D array are 0 and GUI board is empty (except for tile lines)
 def clear_board(bo):
     global board_frame
-    solve_btn['state'] = 'disabled'  # Disable SOLVE since board is empty; can't solve empty board
-    reset_board_btn['state'] = 'disabled'
-    create_board_btn['state'] = 'normal'  # Enable CREATE button so user can create new board to solve
-
     # Clears board from before
     board_frame.destroy()
     empty_board(bo)
@@ -277,7 +275,7 @@ if __name__ == "__main__":
     fill_known_vals(board, board_frame)
 
     # Each tile stored in 2D List as a widget, so called values can be easily changed instead of reinitialized
-    board_widgets = board_of_widgets(board)
+    board_widgets = []
 
     # Button used to solve entire board by prompting user if they would like to see board being solved
     solve_btn = tk.Button(root, text="Solve", font=btn_font, bg='black', activebackground='white', fg='white',
@@ -285,16 +283,10 @@ if __name__ == "__main__":
                           command=lambda: popup_ask_to_show(board, board_frame))
     solve_btn.place(relx=0.09, rely=0.9, relwidth=0.2, relheight=0.07)
 
-    # Button only appears IF board is not empty, and used to have board be empty for new input
-    reset_board_btn = tk.Button(root, text="Reset", font=btn_font, bg='black', activebackground='white', fg='white',
-                                activeforeground='black', borderwidth=0, cursor='hand2', state='disabled',
-                                command=lambda: clear_board(board))
-    reset_board_btn.place(relx=0.4, rely=0.9, relwidth=0.2, relheight=0.07)
-
     # Button where use can input values into a board using entries
     create_board_btn = tk.Button(root, text="Create", font=btn_font, bg='black', activebackground='white', fg='white',
                                  activeforeground='black', borderwidth=0, cursor='hand2',
-                                 command=lambda: input_board_values(board))
+                                 command=combine_funcs(lambda: clear_board(board), lambda: input_board_values(board)))
     create_board_btn.place(relx=0.715, rely=0.9, relwidth=0.2, relheight=0.07)
 
     root.mainloop()
