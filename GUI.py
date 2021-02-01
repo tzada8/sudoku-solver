@@ -1,6 +1,6 @@
 import tkinter as tk
 from boards import board
-from solver import combine_funcs, find_empty_tile, valid_placement, board_is_valid, empty_board
+from solver import combine_funcs, find_empty_tile, valid_placement, board_is_valid, empty_board, print_board
 from tkinter import messagebox
 from Tile import Tile
 
@@ -176,8 +176,8 @@ def transfer_vals(entries, parent):
     # If user created an invalid board, then create messagebox informing them to "create board correctly"
     if not board_is_valid(board):
         # Show error message box to inform user that they didn't create the board correctly
-        messagebox.showerror("Invalid Board Created", "You created an invalid Sudoku board; no solution can be "
-                                                      "derived. Please create a new board.", parent=parent)
+        messagebox.showerror("Invalid Board Created", "You created an invalid Sudoku board; there are no solutions. "
+                                                      "Please create a new board.", parent=parent)
         clear_board(board)
         return
 
@@ -282,7 +282,7 @@ if __name__ == "__main__":
     fill_known_vals(board, board_frame)
 
     # Each tile stored in 2D List as a widget, so called values can be easily changed instead of reinitialized
-    board_widgets = []
+    board_widgets = board_of_widgets(board)
 
     # Button used to solve entire board by prompting user if they would like to see board being solved
     solve_btn = tk.Button(root, text="Solve", font=btn_font, bg='black', activebackground='white', fg='white',
