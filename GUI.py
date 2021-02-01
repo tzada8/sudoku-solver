@@ -229,8 +229,9 @@ def input_board_values(bo):
             vcmd = (create_bo_frame.register(validate), '%P')
 
             # Create entry and add to list
-            entry = tk.Entry(create_bo_frame, font=tile_font, fg='black', justify='center', selectbackground='white',
-                             width=2, cursor='xterm', bd=0, validate='key', validatecommand=vcmd)
+            entry = tk.Entry(create_bo_frame, font=tile_font, fg='black', justify='center', selectbackground='black',
+                             selectforeground='white', width=2, cursor='xterm', bd=0, validate='key',
+                             validatecommand=vcmd)
             col_entries.append(entry)
 
             # Place entry onto screen with specified spacing
