@@ -57,3 +57,12 @@ def is_in_box(val, row, col, bo):
 # Determines if number added to given tile satisfies all conditions
 def valid_placement(val, row, col, bo):
     return not is_in_row(val, row, bo) and not is_in_col(val, col, bo) and not is_in_box(val, row, col, bo)
+
+
+# Function that allows a button to run multiple commands
+def combine_funcs(*funcs):
+    def combined_func(*args, **kwargs):
+        for f in funcs:
+            f(*args, **kwargs)
+
+    return combined_func
