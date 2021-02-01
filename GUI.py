@@ -1,6 +1,6 @@
 import tkinter as tk
 from boards import board
-from solver import combine_funcs, find_empty_tile, valid_placement, empty_board
+from solver import combine_funcs, find_empty_tile, valid_placement, board_is_valid, empty_board
 from tkinter import messagebox
 from Tile import Tile
 
@@ -118,8 +118,6 @@ def insert_or_remove_helper(row, col, val, colour):
 
 # Creates popup window to ask user if they want to see the board being solved or if they just want the answer
 def popup_ask_to_show(bo, location):
-    # Disable SOLVE button so board cannot be re-solved again
-    solve_btn['state'] = 'disabled'
 
     # Uses message boxes to ask if user wants to watch puzzle being solved or not
     response = messagebox.askquestion("Watch Solution Unfold?", "Would you like to watch the solution to the\n"
@@ -137,7 +135,6 @@ def popup_ask_to_show(bo, location):
     else:  # Else solve board with "False" since they just want answer
         solve(bo, False)
         fill_known_vals(bo, location)
-    create_board_btn['state'] = 'normal'  # Enable CREATE button, so new board can be created
 
 
 # Goes through entire Sudoku board following the rules and solves it using recursion
@@ -165,14 +162,25 @@ def solve(bo, show_steps):
 
 
 # Transfers all values from entry to 2D board List
-def transfer_vals(entries):
+def transfer_vals(entries, parent):
     global board_widgets
+
     for r in range(len(board)):
         for c in range(len(board[r])):
             if len(entries[r][c].get()) != 0:  # Entry has input, so add accordingly
                 board[r][c] = int(entries[r][c].get())
             else:  # Entry has no input, so insert a 0 in that spot
                 board[r][c] = 0
+
+    # Checks to see if value user input into board are valid or not
+    # If user created an invalid board, then create messagebox informing them to "create board correctly"
+    if not board_is_valid(board):
+        # Show error message box to inform user that they didn't create the board correctly
+        messagebox.showerror("Invalid Board Created", "You created an invalid Sudoku board; no solution can be "
+                                                      "derived. Please create a new board.", parent=parent)
+        clear_board(board)
+        return
+
     fill_known_vals(board, board_frame)
     board_widgets = board_of_widgets(board)
 
@@ -189,9 +197,6 @@ def validate(item):
 
 # User inputs values into entry boxes, such that they can solve any puzzle they want
 def input_board_values(bo):
-    # Enable SOLVE button and disable CREATE button, so user is forced to choose one option
-    solve_btn['state'] = 'normal'
-    create_board_btn['state'] = 'disabled'
 
     # Creates popup window so user can create their own board that needs to be solved
     create_bo_window = tk.Toplevel()
@@ -236,7 +241,8 @@ def input_board_values(bo):
     # Button to confirm entries; closes window and switches all values to what is listed in each entry
     confirm_btn = tk.Button(create_bo_window, text="Confirm", font=btn_font, bg='black', activebackground='white',
                             fg='white', activeforeground='black', borderwidth=0, cursor='hand2',
-                            command=combine_funcs(lambda: transfer_vals(entries_board), create_bo_window.destroy))
+                            command=combine_funcs(lambda: transfer_vals(entries_board, create_bo_window),
+                                                  create_bo_window.destroy))
     confirm_btn.place(relx=0.375, rely=0.895, relwidth=0.25, relheight=0.08)
 
 
@@ -279,7 +285,7 @@ if __name__ == "__main__":
 
     # Button used to solve entire board by prompting user if they would like to see board being solved
     solve_btn = tk.Button(root, text="Solve", font=btn_font, bg='black', activebackground='white', fg='white',
-                          activeforeground='black', borderwidth=0, cursor='hand2', state='disabled',
+                          activeforeground='black', borderwidth=0, cursor='hand2',
                           command=lambda: popup_ask_to_show(board, board_frame))
     solve_btn.place(relx=0.09, rely=0.9, relwidth=0.2, relheight=0.07)
 

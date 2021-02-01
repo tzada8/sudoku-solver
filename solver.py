@@ -29,14 +29,17 @@ def find_empty_tile(bo):
 
 
 # Checks if "value" already exists in given row
-def is_in_row(val, row, bo):
-    return val in bo[row]
+def is_in_row(val, row, col, bo):
+    for c in range(len(bo)):
+        if val == bo[row][c] and (c != col):
+            return True
+    return False
 
 
 # Checks if "value" already exists in given column
-def is_in_col(val, col, bo):
-    for r in range(len(bo)):
-        if val == bo[r][col]:
+def is_in_col(val, row, col, bo):
+    for r in range(len(bo[row])):
+        if val == bo[r][col] and (r != row):
             return True
     return False
 
@@ -56,7 +59,16 @@ def is_in_box(val, row, col, bo):
 
 # Determines if number added to given tile satisfies all conditions
 def valid_placement(val, row, col, bo):
-    return not is_in_row(val, row, bo) and not is_in_col(val, col, bo) and not is_in_box(val, row, col, bo)
+    return not is_in_row(val, row, col, bo) and not is_in_col(val, row, col, bo) and not is_in_box(val, row, col, bo)
+
+
+# Determines if entire board is valid
+def board_is_valid(bo):
+    for r in range(len(bo)):
+        for c in range(len(bo[r])):
+            if bo[r][c] != 0 and not valid_placement(bo[r][c], r, c, bo):
+                return False
+    return True
 
 
 # Function that allows a button to run multiple commands
