@@ -1,6 +1,6 @@
 import tkinter as tk
 from boards import board
-from solver import combine_funcs, find_empty_tile, valid_placement, board_is_valid, empty_board, print_board
+from solver import combine_funcs, find_empty_tile, valid_placement, board_is_valid, empty_board
 from tkinter import messagebox
 from Tile import Tile
 
