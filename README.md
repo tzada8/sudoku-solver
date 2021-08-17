@@ -1,26 +1,19 @@
 # Sudoku Solver
 
-Determining the shortest distance between two points is a crucial aspect in day to day life. This application does exactly that. It determines the shortest distance between two points in any given obstacle using different approaches.
+Ever be doing a Sudoku puzzle and end up getting stuck in solving it? Well, this application aids the user in solving any Sudoku puzzle. 
 
-With this Pathfinding Algorithms application, users can draw unique obstacles or choose one of the preset ones, and the shortest path between the start point and endpoint will be determined.
+With this Sudoku Solver application, a user can input any sudoku board they would like, and the program will solve the board for them using the Backtracking alogrithm. If no solution exists, then the application will inform the user of that.
 
-The user also has the option to watch the solution unfold or to choose between algorithms such that they may see the differences between how each algorithm works.
+The user also has the option to watch the solution unfold or to immediately see the answer to the puzzle.
 
 ### Tech Stack:
-Frontend - Java Swing (GUI)
+Frontend - Tkinter (GUI)
 
-Backend - Java (Algorithms, Obstacles, and Features)
+Backend - Python (Backtracking, Functionality, and Features)
 
 ### Application's Functionality:
-A settings component of the entire application allows the user to start the pathfinding, reset the board, see the steps of the solution, choose between different algorithms, and choose between different obstacles.
+There are two main settings of the application: a "Solve" button and a "Create" button:
+- "Solve" prompts the user whether they would like to watch the solution unfold or just see the final answer, and then uses the Backtracking algorithm to physically solve the board
+- "Create" opens a new window with an empty board, allowing the user to insert the numbers for their Sudoku puzzle.
 
-If a different obstacle is chosen, then the board resets, and the new obstacle is drawn instead. If a different algorithm is chosen, then the application remembers this algorithm for when the pathfinding begins.
-
-The application has several different algorithms to choose from including:
-
-- Breadth-First Search: Checks the board by viewing the tiles closest to the start tile, then spreading out
-- Depth-First Search: Fully attempts one path until a dead end is reached, then attempts another
-- A*: Calculates a G, H and F cost for the current tile, being the distances between the start/end tile and the current tile
-- Dijkstra: Checks tiles that are closest to the start tile
-
-Once an algorithm and obstacle are chosen, the user can then choose to see the steps or just view the solution. Seeing the steps will render red and green tiles to depict how the algorithm runs and which tiles it checks.
+Once the board is created, the user can then choose to see the steps or just view the solution. Seeing the steps will render red and green tiles to depict how the algorithm runs and which numbers it inserts/removes.
