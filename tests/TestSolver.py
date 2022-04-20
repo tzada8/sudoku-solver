@@ -5,7 +5,7 @@ from solver import *
 
 # Run tests `python -m unittest discover tests`.
 
-class MyTestCase(unittest.TestCase):
+class TestSolver(unittest.TestCase):
     def setUp(self):
         self.word = "crazy"
 
