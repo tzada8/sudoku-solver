@@ -68,6 +68,19 @@ class TestBoard(unittest.TestCase):
     def test_find_empty_tile_no_empty(self):
         self.assertEqual(Board(self.board_full).find_empty_tile(), None)
 
+    def test_get_val_invalid_row(self):
+        with self.assertRaises(IndexError) as err:
+            Board(self.board).get_val(999, 0)
+        self.assertEqual(str(err.exception), 'list index out of range')
+
+    def test_get_val_invalid_col(self):
+        with self.assertRaises(IndexError) as err:
+            Board(self.board).get_val(0, 999)
+        self.assertEqual(str(err.exception), 'list index out of range')
+
+    def test_get_val_valid(self):
+        self.assertEqual(Board(self.board).get_val(0, 0), 5)
+
     def test_is_valid_placement_invalid_value(self):
         value = 999
         row = 0

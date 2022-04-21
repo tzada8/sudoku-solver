@@ -44,6 +44,10 @@ class Board:
                     return r, c  # Empty tile is at that location
         return None  # No more empty tiles
 
+    # Gets value at specified row and col.
+    def get_val(self, row, col):
+        return self.bo[row][col]
+
     # Confirms if "value" satisfies all conditions to insert it.
     def is_valid_placement(self, val, row, col):
         Board.__confirm_value(val)
