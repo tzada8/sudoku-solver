@@ -1,6 +1,6 @@
-# Class that holds each tile's border colour (within frame) and tile value (within label)
 class Tile:
+    FONT = ("Comic Sans", 18)
 
-    def __init__(self, border, number):
+    def __init__(self, border, label):
         self.border = border  # Holds frame with green/red border
-        self.number = number  # Holds value of tile in center of frame
+        self.label = label  # Holds value of tile in center of frame
