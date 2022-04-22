@@ -81,6 +81,26 @@ class TestBoard(unittest.TestCase):
     def test_get_val_valid(self):
         self.assertEqual(Board(self.board).get_val(0, 0), 5)
 
+    def test_set_val_invalid_row(self):
+        with self.assertRaises(IndexError) as err:
+            Board(self.board).set_val(999, 0, 1)
+        self.assertEqual(str(err.exception), 'list index out of range')
+
+    def test_set_val_invalid_col(self):
+        with self.assertRaises(IndexError) as err:
+            Board(self.board).set_val(0, 999, 1)
+        self.assertEqual(str(err.exception), 'list assignment index out of range')
+
+    def test_set_val_invalid_value(self):
+        with self.assertRaises(ValueError) as err:
+            Board(self.board).is_valid_placement(0, 0, 999)
+        self.assertEqual(str(err.exception), 'value must be between 1 and 9')
+
+    def test_set_val_valid(self):
+        board = Board(self.board)
+        board.set_val(0, 0, 1)
+        self.assertEqual(board.bo[0][0], 1)
+
     def test_is_valid_placement_invalid_value(self):
         value = 999
         row = 0

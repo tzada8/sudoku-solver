@@ -48,6 +48,11 @@ class Board:
     def get_val(self, row, col):
         return self.bo[row][col]
 
+    # Set value at specified row and col.
+    def set_val(self, row, col, val):
+        self.__confirm_value(val)
+        self.bo[row][col] = val
+
     # Confirms if "value" satisfies all conditions to insert it.
     def is_valid_placement(self, val, row, col):
         Board.__confirm_value(val)
@@ -70,8 +75,8 @@ class Board:
     # Raise error if "value" is invalid.
     @staticmethod
     def __confirm_value(val):
-        if val not in Board.VALUES:
-            raise ValueError(f'value must be between {min(Board.VALUES)} and {max(Board.VALUES)}')
+        if val not in Board.VALUES and val != Board.EMPTY_VALUE:
+            raise ValueError(f'value must be between {Board.EMPTY_VALUE} and {max(Board.VALUES)}')
 
     # Confirms if "value" already exists in given row.
     def __is_in_row(self, val, row, col):
