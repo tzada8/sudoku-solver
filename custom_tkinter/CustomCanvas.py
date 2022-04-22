@@ -1,15 +1,12 @@
 from tkinter import Canvas
 from colours import BASE
-from BoardGUI import BoardGUI
 
 
 class CustomCanvas(Canvas):
-    DEFAULT_Y = 179 / 200  # 0.895.
-    DEFAULT_HEIGHT = 2 / 25  # 0.08.
-    FONT = ("Helvetica", 12, 'bold')
+    SIZE = 374
 
     def __init__(self, location):
-        super().__init__(location, width=BoardGUI.SIZE, height=BoardGUI.SIZE, bg=BASE["WHITE"],
+        super().__init__(location, width=self.SIZE, height=self.SIZE, bg=BASE["WHITE"],
                          borderwidth=0, highlightthickness=0)
 
     # Places custom canvas on frame.

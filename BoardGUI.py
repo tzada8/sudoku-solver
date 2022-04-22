@@ -1,97 +1,87 @@
+import pdb
 import tkinter as tk
+from custom_tkinter.CustomFrame import CustomFrame
+from custom_tkinter.CustomCanvas import CustomCanvas
+from colours import BORDER
 from Board import Board
 from Tile import Tile
 
 
 class BoardGUI:
-    SIZE = 374
-    TILE_SIZE = SIZE / 9  # Each Tile is approximately 41.55x41.55.
-
     # Initializes a BoardGUI from a 2D array.
-    def __init__(self, board: Board, location):
-        self.board = board
+    def __init__(self, board: Board, root):
+        # Board's central frame with boxes drawn.
+        self.root = root
+        self.__create_board_frame()
 
-        # Creating central frame for board with appropriate lines.
-        self.root = location
-        self.board_frame = tk.Frame(self.root.window, bg='white', highlightbackground="black", highlightthickness=3, borderwidth=0)
-        self.__create_blank_board()
+        # 2D array storing board's values as frames/labels.
+        self.board_widgets = self.__list_of_widgets(board)
 
-        # Creating 2D array of frames and labels from Board.
-        self.board_widgets = self.__list_of_widgets()
-
-    def clear(self):
-        # Clear previous board.
+    # Destroys and re-creates the board_frame.
+    def reset(self):
         self.board_frame.destroy()
-        self.board.clear()
-
-        # Re-create empty board.
-        self.board_frame = tk.Frame(self.root.window, bg='white', highlightbackground="black", highlightthickness=3, borderwidth=0)
-        self.__create_blank_board()
+        self.__create_board_frame()
 
     # Place known values in board.
-    def fill_known_vals(self):
+    def fill_known_vals(self, board: Board):
         for r in range(Board.SIZE):
             for c in range(Board.SIZE):
                 # Place all tiles onto board that are not empty.
-                if self.board.bo[r][c] != Board.EMPTY_VALUE:
+                curr_val = board.get_val(r, c)
+                if curr_val != Board.EMPTY_VALUE:
                     adjust_x, adjust_y = BoardGUI.__determine_spacing(r, c, True)
-                    tile_val = tk.Label(self.board_frame, text=self.board.bo[r][c], font=Tile.FONT, bg='white', fg='black')
+                    tile_val = tk.Label(self.board_frame, text=curr_val, font=Tile.FONT, bg='white', fg='black')
                     tile_val.place(relx=adjust_x, rely=adjust_y)
 
-    def insert_value(self, row, col):
-        self.__insert_or_remove_value(row, col, self.board.bo[row][col], 'green')
+    def insert_value(self, row, col, val):
+        self.__update_tile(row, col, val, BORDER["INSERT"])
 
     def remove_value(self, row, col):
-        self.__insert_or_remove_value(row, col, 0, 'red')
+        self.__update_tile(row, col, Board.EMPTY_VALUE, BORDER["REMOVE"])
 
-    def __insert_or_remove_value(self, row, col, val, colour):
+    def __update_tile(self, row, col, val, colour):
         adjust_x, adjust_y = BoardGUI.__determine_spacing(row, col, False)
 
-        # Set frame border to parameter colour.
-        self.board_widgets[row][col].border['highlightbackground'] = colour
-        self.board_widgets[row][col].border['highlightcolor'] = colour
-        # Set label value to parameter value.
-        self.board_widgets[row][col].label['text'] = val
-
-        # Place frame and label on main frame.
-        self.board_widgets[row][col].border.place(relx=adjust_x, rely=adjust_y, relwidth=0.111, relheight=0.111)
-        self.board_widgets[row][col].label.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.8)
+        tile = self.board_widgets[row][col]
+        tile.update(colour, val)
+        tile.place(adjust_x, adjust_y)
 
         self.board_frame.update()
 
+    # Creates board frame with boxes and places it on the screen.
+    def __create_board_frame(self):
+        self.board_frame = CustomFrame(self.root)
+        self.__create_blank_board()
+        self.board_frame.place()
+
     # Creates the boxes, rows, and columns to distinguish tiles.
     def __create_blank_board(self):
-        # Canvas to draw lines.
-        canvas = tk.Canvas(self.board_frame, width=self.TILE_SIZE * 9, height=self.TILE_SIZE * 9, bg='white', borderwidth=0, highlightthickness=0)
+        canvas = CustomCanvas(self.board_frame)
 
         # Create all vertical and horizontal lines.
         ver_loc = 0
         hor_loc = 0
         for i in range(1, Board.SIZE):
             # Split board evenly into 9 sections.
-            ver_loc += self.TILE_SIZE  # Move in x.
-            hor_loc += self.TILE_SIZE  # Move in y.
+            ver_loc += Tile.SIZE  # Move in x.
+            hor_loc += Tile.SIZE  # Move in y.
 
             # Draw lines.
-            if i % 3 == 0:  # Thick lines between boxes.
-                canvas.create_line(0, hor_loc, self.SIZE, hor_loc, width=3)
-                canvas.create_line(ver_loc, 0, ver_loc, self.SIZE, width=3)
+            if i % Board.BOX_SIZE == 0:  # Thick lines between boxes.
+                canvas.create_line(0, hor_loc, CustomCanvas.SIZE, hor_loc, width=3)
+                canvas.create_line(ver_loc, 0, ver_loc, CustomCanvas.SIZE, width=3)
             else:  # Thin lines between tiles.
-                canvas.create_line(0, hor_loc, self.SIZE, hor_loc)
-                canvas.create_line(ver_loc, 0, ver_loc, self.SIZE)
-        canvas.place(relwidth=1, relheight=1)
+                canvas.create_line(0, hor_loc, CustomCanvas.SIZE, hor_loc)
+                canvas.create_line(ver_loc, 0, ver_loc, CustomCanvas.SIZE)
+        canvas.place()
 
     # Creates a 2D List containing Tile objects Frame widget with a Label widget within it (for number).
-    def __list_of_widgets(self):
+    def __list_of_widgets(self, board):
         total_widgets = []
         for r in range(Board.SIZE):
             col_widgets = []
             for c in range(Board.SIZE):
-                # Frame takes size of tile's value.
-                tile_border_frame = tk.Frame(self.board_frame, bg='white', highlightthickness=2)
-                tile_val = tk.Label(tile_border_frame, text=self.board.bo[r][c], font=Tile.FONT, bg='white', fg='black')
-
-                col_widgets.append(Tile(tile_border_frame, tile_val))
+                col_widgets.append(Tile(self.board_frame, board.get_val(r, c)))
             total_widgets.append(col_widgets)
         return total_widgets
 

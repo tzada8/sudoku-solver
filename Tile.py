@@ -1,9 +1,11 @@
 from tkinter import Frame, Label
 from custom_tkinter.CustomFrame import CustomFrame
+from custom_tkinter.CustomCanvas import CustomCanvas
 from colours import BASE
 
 
 class Tile:
+    SIZE = CustomCanvas.SIZE / 9  # Each Tile is approximately 41.55x41.55.
     FONT = ("Comic Sans", 18)
     REL_FRAME_SIZE = 1 / 9  # 0.111.
     REL_LABEL_LOC = 1 / 10  # 0.1.
