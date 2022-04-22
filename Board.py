@@ -44,6 +44,14 @@ class Board:
                     return r, c  # Empty tile is at that location
         return None  # No more empty tiles
 
+    # Gets entire board.
+    def get_bo(self):
+        return self.bo
+
+    # Sets entire board.
+    def set_bo(self, bo):
+        self.bo = bo
+
     # Gets value at specified row and col.
     def get_val(self, row, col):
         return self.bo[row][col]
@@ -56,16 +64,41 @@ class Board:
     # Confirms if "value" satisfies all conditions to insert it.
     def is_valid_placement(self, val, row, col):
         Board.__confirm_value(val)
-        return not self.__is_in_row(val, row, col) and not self.__is_in_col(val, row, col) and not self.__is_in_box(val, row, col)
+        return not self.__is_in_row(val, row, col) and not self.__is_in_col(val, row, col) and not self.__is_in_box(val,
+                                                                                                                    row,
+                                                                                                                    col)
 
     # Determines if entire board is valid.
     def is_fully_valid(self):
         for r in range(self.SIZE):
             for c in range(self.SIZE):
                 curr = self.bo[r][c]
-                if curr != 0 and not self.is_valid_placement(curr, r, c):
+                if curr != self.EMPTY_VALUE and not self.is_valid_placement(curr, r, c):
                     return False
         return True
+
+    # Goes through entire Sudoku board solving it using recursion.
+    def solve(self, board_view, is_visual):
+        empty_location = self.find_empty_tile()
+        if not empty_location:  # If board is full, then exit recursion.
+            return True
+        else:  # If still some empty tiles, then get current empty tile.
+            row, col = empty_location
+
+        for i in Board.VALUES:
+            # If value is valid, place in board and move to next empty tile.
+            if self.is_valid_placement(i, row, col):
+                self.set_val(row, col, i)
+                if is_visual:  # Only show solution if chooses to see steps.
+                    board_view.insert_value(row, col, self.get_val(row, col))
+
+                if self.solve(board_view, is_visual):
+                    return True
+                # Tile could not be filled, so empty it, then backtrack to previous step.
+                self.set_val(row, col, Board.EMPTY_VALUE)
+                if is_visual:  # Only show solution if chooses to see steps.
+                    board_view.remove_value(row, col)
+        return False
 
     # Determines if a board is squared.
     @staticmethod

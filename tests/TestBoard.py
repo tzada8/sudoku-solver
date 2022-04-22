@@ -1,3 +1,4 @@
+import pdb
 import unittest
 from Board import Board
 
@@ -68,6 +69,14 @@ class TestBoard(unittest.TestCase):
     def test_find_empty_tile_no_empty(self):
         self.assertEqual(Board(self.board_full).find_empty_tile(), None)
 
+    def test_get_bo(self):
+        self.assertEqual(Board(self.board).get_bo(), self.board)
+
+    def test_set_bo(self):
+        board = Board(self.board)
+        board.set_bo(self.board_empty)
+        self.assertEqual(board.bo, self.board_empty)
+
     def test_get_val_invalid_row(self):
         with self.assertRaises(IndexError) as err:
             Board(self.board).get_val(999, 0)
@@ -93,8 +102,8 @@ class TestBoard(unittest.TestCase):
 
     def test_set_val_invalid_value(self):
         with self.assertRaises(ValueError) as err:
-            Board(self.board).is_valid_placement(0, 0, 999)
-        self.assertEqual(str(err.exception), 'value must be between 1 and 9')
+            Board(self.board).set_val(0, 0, 999)
+        self.assertEqual(str(err.exception), 'value must be between 0 and 9')
 
     def test_set_val_valid(self):
         board = Board(self.board)
@@ -107,7 +116,7 @@ class TestBoard(unittest.TestCase):
         col = 0
         with self.assertRaises(ValueError) as err:
             Board(self.board).is_valid_placement(value, row, col)
-        self.assertEqual(str(err.exception), 'value must be between 1 and 9')
+        self.assertEqual(str(err.exception), 'value must be between 0 and 9')
 
     def test_is_valid_placement_invalid_row(self):
         value = 1
