@@ -1,5 +1,6 @@
 from tkinter import Button
 from colours import BASE
+from fonts import FONT
 
 
 # Allows a Button to run multiple commands.
@@ -14,10 +15,9 @@ def combine_funcs(*funcs):
 class CustomButton(Button):
     DEFAULT_Y = 179 / 200  # 0.895.
     DEFAULT_HEIGHT = 2 / 25  # 0.08.
-    FONT = ("Helvetica", 12, 'bold')
 
     def __init__(self, location, text, funcs):
-        super().__init__(location, text=text, font=self.FONT, bg=BASE["BLACK"], activebackground=BASE["WHITE"],
+        super().__init__(location, text=text, font=FONT["BUTTON"], bg=BASE["BLACK"], activebackground=BASE["WHITE"],
                          fg=BASE["WHITE"], activeforeground=BASE["BLACK"], borderwidth=0, cursor="hand2",
                          command=combine_funcs(funcs))
 
