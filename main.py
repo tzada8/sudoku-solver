@@ -3,10 +3,10 @@ from custom_tkinter.CustomLabel import CustomLabel
 from custom_tkinter.CustomButton import CustomButton
 from custom_tkinter.PopUp import PopUp
 
-from colours import WINDOW_BG
-from fonts import FONT
+from utils.colours import WINDOW_BG
+from utils.fonts import FONT
 
-from boards import default_board
+from utils.boards import default_board
 from Board import Board
 from board_interface.BoardView import BoardView
 from board_interface.BoardCreate import BoardCreate

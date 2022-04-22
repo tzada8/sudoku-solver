@@ -1,6 +1,6 @@
 from tkinter import Label
-from colours import BASE
-from fonts import FONT
+from utils.colours import BASE
+from utils.fonts import FONT
 
 
 class CustomLabel(Label):

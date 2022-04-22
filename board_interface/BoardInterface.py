@@ -1,8 +1,5 @@
-import pdb
 from custom_tkinter.CustomFrame import CustomFrame
-from custom_tkinter.CustomLabel import CustomLabel
 from custom_tkinter.CustomCanvas import CustomCanvas
-from colours import BORDER
 from Board import Board
 from Tile import Tile
 

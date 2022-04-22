@@ -1,5 +1,5 @@
 from tkinter import Canvas
-from colours import BASE
+from utils.colours import BASE
 
 
 class CustomCanvas(Canvas):

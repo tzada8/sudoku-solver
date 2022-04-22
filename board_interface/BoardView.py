@@ -1,10 +1,8 @@
-import pdb
-
 from custom_tkinter.CustomLabel import CustomLabel
-from colours import BORDER
+from utils.colours import BORDER
 from board_interface.BoardInterface import BoardInterface
 from Board import Board
-from Tile import Tile
+from board_interface.Tile import Tile
 
 
 class BoardView(BoardInterface):

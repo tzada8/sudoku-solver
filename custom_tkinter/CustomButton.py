@@ -1,6 +1,6 @@
 from tkinter import Button
-from colours import BASE
-from fonts import FONT
+from utils.colours import BASE
+from utils.fonts import FONT
 
 
 # Allows a Button to run multiple commands.

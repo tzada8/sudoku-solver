@@ -1,5 +1,5 @@
 from tkinter import Frame
-from colours import BASE
+from utils.colours import BASE
 
 
 class CustomFrame(Frame):

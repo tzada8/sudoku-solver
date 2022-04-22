@@ -1,5 +1,5 @@
 from tkinter import Tk, Toplevel
-from colours import WINDOW_BG
+from utils.colours import WINDOW_BG
 
 # Relative path to Sudoku Icon.
 LOGO_PATH = "./images/sudoku_logo.ico"
