@@ -1,4 +1,5 @@
 from tkinter import Frame
+from colours import BASE
 
 
 class CustomFrame(Frame):
@@ -8,7 +9,8 @@ class CustomFrame(Frame):
     DEFAULT_HEIGHT = 38 / 45  # 0.84444.
 
     def __init__(self, location):
-        super().__init__(location, bg="white", highlightbackground="black", highlightthickness=3, borderwidth=0)
+        super().__init__(location, bg=BASE["WHITE"], highlightbackground=BASE["BLACK"],
+                         highlightthickness=3, borderwidth=0)
 
     # Places custom frame on the board.
     def place(self, x=DEFAULT_X, y=DEFAULT_Y, width=DEFAULT_WIDTH, height=DEFAULT_HEIGHT):

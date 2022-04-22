@@ -1,5 +1,6 @@
 from tkinter import Frame, Label
 from custom_tkinter.CustomFrame import CustomFrame
+from colours import BASE
 
 
 class Tile:
@@ -13,7 +14,7 @@ class Tile:
         self.border = CustomFrame(location)
 
         # Value in center of frame.
-        self.label = Label(self.border, text=value, font=self.FONT, bg="white", fg="black")
+        self.label = Label(self.border, text=value, font=self.FONT, bg=BASE["WHITE"], fg=BASE["BLACK"])
 
     # Updates Tile's border colour and label.
     def update(self, colour, value):
