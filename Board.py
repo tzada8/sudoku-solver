@@ -4,12 +4,8 @@ class Board:
     SIZE = len(VALUES)
     BOX_SIZE = int(SIZE / 3)
 
-    # Initializes a board from a 2D array.
     def __init__(self, bo):
-        # Confirm board is correct Sudoku Board size (9x9).
-        if not Board.is_square(bo) or not len(bo) == self.SIZE:
-            raise ValueError(f'board size must be {self.SIZE}x{self.SIZE}')
-        self.bo = bo
+        self.set_bo(bo)
 
     # Neatly prints board to console formatted as a Sudoku Board.
     def print(self):
@@ -50,6 +46,9 @@ class Board:
 
     # Sets entire board.
     def set_bo(self, bo):
+        # Confirm board is correct Sudoku Board size (9x9).
+        if not Board.is_square(bo) or not len(bo) == self.SIZE:
+            raise ValueError(f'board size must be {self.SIZE}x{self.SIZE}')
         self.bo = bo
 
     # Gets value at specified row and col.
