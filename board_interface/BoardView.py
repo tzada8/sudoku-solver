@@ -1,7 +1,9 @@
 from custom_tkinter.CustomLabel import CustomLabel
+
 from utils.colours import BORDER
-from board_interface.BoardInterface import BoardInterface
+
 from board_interface.Board import Board
+from board_interface.BoardInterface import BoardInterface
 from board_interface.Tile import Tile
 
 

@@ -1,9 +1,9 @@
-from custom_tkinter.PopUp import PopUp
 from custom_tkinter.CustomEntry import CustomEntry
+from custom_tkinter.PopUp import PopUp
 
+from board_interface.Board import Board
 from board_interface.BoardInterface import BoardInterface
 from board_interface.BoardView import BoardView
-from board_interface.Board import Board
 
 
 class BoardCreate(BoardInterface):

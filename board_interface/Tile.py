@@ -1,6 +1,7 @@
 from custom_tkinter.CustomFrame import CustomFrame
-from custom_tkinter.CustomLabel import CustomLabel
 from custom_tkinter.CustomCanvas import CustomCanvas
+from custom_tkinter.CustomLabel import CustomLabel
+
 from board_interface.Board import Board
 
 

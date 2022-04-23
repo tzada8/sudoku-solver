@@ -12,6 +12,10 @@ default_board = [
     [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ]
 
+# TODO: preset_1
+# TODO: preset_2
+# TODO: preset_3
+
 empty_board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],

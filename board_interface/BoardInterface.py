@@ -1,8 +1,8 @@
 from custom_tkinter.CustomFrame import CustomFrame
 from custom_tkinter.CustomCanvas import CustomCanvas
 
-from board_interface.Tile import Tile
 from board_interface.Board import Board
+from board_interface.Tile import Tile
 
 
 class BoardInterface(CustomFrame):
