@@ -1,7 +1,7 @@
 from tkinter import Entry
 from utils.colours import BASE
 from utils.fonts import FONT
-from Board import Board
+from board_interface.Board import Board
 
 
 class CustomEntry(Entry):

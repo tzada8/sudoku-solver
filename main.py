@@ -1,13 +1,13 @@
 from custom_tkinter.CustomWindow import CustomTk, CustomTopLevel
-from custom_tkinter.CustomLabel import CustomLabel
 from custom_tkinter.CustomButton import CustomButton
+from custom_tkinter.CustomLabel import CustomLabel
 from custom_tkinter.PopUp import PopUp
 
 from utils.colours import WINDOW_BG
 from utils.fonts import FONT
 
 from utils.boards import default_board
-from Board import Board
+from board_interface.Board import Board
 from board_interface.BoardView import BoardView
 from board_interface.BoardCreate import BoardCreate
 
