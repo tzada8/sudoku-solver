@@ -1,4 +1,4 @@
-# Module where boards that want to be solved can be created
+# Preset/helpful boards can be created to solve.
 
 default_board = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
