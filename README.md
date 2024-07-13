@@ -1,19 +1,122 @@
-# Sudoku Solver
+<a id="readme-top"></a>
 
-Ever be doing a Sudoku puzzle and end up getting stuck in solving it? Well, this application aids the user in solving any Sudoku puzzle. 
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <a href="https://github.com/tzada8/sudoku-solver">
+        <img src="images/sudoku_logo.png" alt="Sudoku Solver" width="100" height="100">
+    </a>
+    <h3 align="center">Sudoku Solver: Solve any Sudoku board with ease</h3>
+    <p align="center">
+        Sudoku Solver provides users with the ability to solve any Sudoku puzzle with ease. Anytime they get stuck on a puzzle and cannot solve the board, this application provides that assistance.
+    </p>
+</div>
 
-With this Sudoku Solver application, a user can input any sudoku board they would like, and the program will solve the board for them using the Backtracking alogrithm. If no solution exists, then the application will inform the user of that.
+<!-- TABLE OF CONTENTS -->
+<details>
+    <summary>Table of Contents</summary>
+    <ol>
+        <li>
+            <a href="#about-the-project">About The Project</a>
+        </li>
+        <li>
+            <a href="#getting-started">Getting Started</a>
+            <ul>
+                <li><a href="#installations">Installations</a></li>
+                <li><a href="#backend-setup">Backend Setup</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#starting-the-app">Starting the App</a>
+            <ul>
+                <li><a href="#backend-startup">Backend Startup</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#testing">Testing</a>
+            <ul>
+                <li><a href="#backend-tests">Backend Tests</a></li>
+            </ul>
+        </li>
+    </ol>
+</details>
 
-The user also has the option to watch the solution unfold or to immediately see the answer to the puzzle.
 
-### Tech Stack:
-Frontend - Tkinter (GUI)
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-Backend - Python (Backtracking, Functionality, and Features)
+<div align="center">
+    <img src="images/sudoku_solver.png" alt="Sudoku Solver Board" width="400" height="380">
+</div>
+<br/>
 
-### Application's Functionality:
-There are two main settings of the application: a "Solve" button and a "Create" button:
-- "Solve" prompts the user whether they would like to watch the solution unfold or just see the final answer, and then uses the Backtracking algorithm to physically solve the board
-- "Create" opens a new window with an empty board, allowing the user to insert the numbers for their Sudoku puzzle.
+Sudoku Solver helps users solve puzzles for them. If no solution exists, the application notifies the user.
 
-Once the board is created, the user can then choose to see the steps or just view the solution. Seeing the steps will render red and green tiles to depict how the algorithm runs and which numbers it inserts/removes.
+Users can either solve the current board or create a new board layout. When creating a board layout, users can insert numbers within each cell of the Sudoku board. Similarly, when solving the current board, users can specify if they are interested in visually seeing the backtracking algorithm in action or if they would prefer to just see the final solution.
+
+Visually displaying the backtracking algorithm will show green and red cells, depicting the cells that were just placed or removed in order to reach the valid solution.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+### Installations
+
+Ensure the following application is locally installed:
+
+- [Python](https://www.python.org/downloads/)
+
+### Backend Setup
+
+Follow the steps listed below to setup your backend environment.
+
+1. Create a local virtual environment
+    ```
+    python3 -m venv .venv
+    ```
+2. Activate the virtual environment
+    ```
+    source .venv/bin/activate
+    ```
+3. When needed, deactivate the local virtual environment
+    ```
+    deactivate
+    ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- STARTING THE APP -->
+## Starting the App
+
+### Backend Startup
+
+1. Activate your virtual environment
+    ```
+    source .venv/bin/activate
+    ```
+2. Start the application
+    ```
+    python3 main.py
+    ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- TESTING -->
+## Testing
+
+### Backend Tests
+
+1. Activate your virtual environment
+    ```
+    source .venv/bin/activate
+    ```
+2. Run the tests
+    ```
+    python3 -m unittest discover -s tests
+    ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
